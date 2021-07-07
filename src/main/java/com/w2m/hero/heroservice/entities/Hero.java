@@ -23,7 +23,7 @@ public class Hero {
     @Column(name = "hero_last_name")
     private String hiddenLastName;
 
-    @OneToMany(mappedBy = "hero", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "hero", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonManagedReference("skills")
     private List<Skill> skills;
 
