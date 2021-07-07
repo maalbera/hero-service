@@ -1,35 +1,43 @@
 package com.w2m.hero.heroservice.controller;
 
 import com.w2m.hero.heroservice.dto.HeroDTO;
+import com.w2m.hero.heroservice.service.HeroService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
-@RequestMapping(path = "/hero")
+@RequestMapping(path = "/hero-service")
 public class HeroController {
 
+    @Autowired
+    private HeroService heroService;
 
-    @PostMapping("/")
-    public HeroDTO create(@RequestBody HeroDTO request){
-        return null;
+    @PostMapping("/hero")
+    public HeroDTO create(@RequestBody HeroDTO request) {
+        return heroService.create(request);
     }
 
-    @GetMapping("/{id}")
-    public HeroDTO retrieve(@PathVariable Long id){
-        return null;
+    @GetMapping("/hero/{id}")
+    public HeroDTO retrieve(@PathVariable Long id) {
+        return heroService.retrieveHeroById(id);
     }
 
-    @GetMapping("/name/{heroName}")
-    public HeroDTO retrieve(@PathVariable String heroName){
-        return null;
+    @GetMapping("/hero/name/{heroName}")
+    public List<HeroDTO> retrieve(@PathVariable String heroName) {
+        return heroService.retrieveHeroByName(heroName);
     }
 
-    @PutMapping("/{id}")
-    public HeroDTO update(@PathVariable Long id, @RequestBody HeroDTO request){
-        return null;
+    @PutMapping("/hero/{id}")
+    public HeroDTO update(@PathVariable Long id, @RequestBody HeroDTO request) {
+        return heroService.update(id, request);
     }
 
-    @DeleteMapping("/{id}")
-    public HeroDTO delete(@PathVariable Long id){
-        return null;
+    @DeleteMapping("/hero/{id}")
+    public ResponseEntity delete(@PathVariable Long id) {
+        heroService.delete(id);
+        return ResponseEntity.ok().build();
     }
 }

@@ -13,5 +13,5 @@ public class HeroDTO {
     private String heroName;
     private String hiddenName;
     private String hiddenLastName;
-    private List<Skill> skills;
+    private List<SkillDTO> skills;
 }
