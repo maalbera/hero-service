@@ -1,11 +1,16 @@
 package com.w2m.hero.heroservice.dto;
 
-import com.w2m.hero.heroservice.entities.Skill;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
-
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Data
 public class HeroDTO {
 
