@@ -14,7 +14,7 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
@@ -43,6 +43,23 @@ class HeroServiceApplicationTests {
 
 		mvc.perform(post("/hero-service/hero")
 				.contentType(MediaType.APPLICATION_JSON).content(json))
+				.andExpect(status().isOk())
+				.andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+				.andExpect(jsonPath("heroName", is("Spiderman")));
+	}
+
+	@Test
+	public void post_getById_superhero()
+			throws Exception {
+
+		Gson gson = new Gson();
+		String json = gson.toJson(HeroDTO.builder().heroName("Spiderman").hiddenLastName("Parker").hiddenName("Perter").build());
+
+		mvc.perform(post("/hero-service/hero")
+				.contentType(MediaType.APPLICATION_JSON).content(json));
+
+		mvc.perform(get("/hero-service/hero/1")
+				.contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk())
 				.andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 				.andExpect(jsonPath("heroName", is("Spiderman")));
